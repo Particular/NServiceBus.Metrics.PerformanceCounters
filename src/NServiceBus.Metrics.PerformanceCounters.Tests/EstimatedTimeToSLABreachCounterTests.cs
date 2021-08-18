@@ -10,9 +10,9 @@ public class EstimatedTimeToSLABreachCounterTests
         var mockPerformanceCounter = new MockIPerformanceCounter();
         var counter = new EstimatedTimeToSLABreachCounter(TimeSpan.FromSeconds(2), mockPerformanceCounter);
         counter.Update(
-            sent: new DateTime(2000, 1, 1, 1, 1, 1, DateTimeKind.Utc),
-            processingStarted: new DateTime(2000, 1, 1, 1, 1, 2, DateTimeKind.Utc),
-            processingEnded: new DateTime(2000, 1, 1, 1, 1, 3, DateTimeKind.Utc));
+            sent: new DateTimeOffset(2000, 1, 1, 1, 1, 1, TimeSpan.Zero),
+            processingStarted: new DateTimeOffset(2000, 1, 1, 1, 1, 2, TimeSpan.Zero),
+            processingEnded: new DateTimeOffset(2000, 1, 1, 1, 1, 3, TimeSpan.Zero));
         Assert.AreEqual(int.MaxValue, mockPerformanceCounter.RawValue);
     }
 
@@ -22,13 +22,13 @@ public class EstimatedTimeToSLABreachCounterTests
         var mockPerformanceCounter = new MockIPerformanceCounter();
         var counter = new EstimatedTimeToSLABreachCounter(TimeSpan.FromSeconds(2), mockPerformanceCounter);
         counter.Update(
-            sent: new DateTime(2000, 1, 1, 1, 1, 1, DateTimeKind.Utc),
-            processingStarted: new DateTime(2000, 1, 1, 1, 1, 2, DateTimeKind.Utc),
-            processingEnded: new DateTime(2000, 1, 1, 1, 1, 3, DateTimeKind.Utc));
+            sent: new DateTimeOffset(2000, 1, 1, 1, 1, 1, TimeSpan.Zero),
+            processingStarted: new DateTimeOffset(2000, 1, 1, 1, 1, 2, TimeSpan.Zero),
+            processingEnded: new DateTimeOffset(2000, 1, 1, 1, 1, 3, TimeSpan.Zero));
         counter.Update(
-            sent: new DateTime(2000, 1, 1, 1, 1, 4, DateTimeKind.Utc),
-            processingStarted: new DateTime(2000, 1, 1, 1, 1, 5, DateTimeKind.Utc),
-            processingEnded: new DateTime(2000, 1, 1, 1, 1, 10, DateTimeKind.Utc));
+            sent: new DateTimeOffset(2000, 1, 1, 1, 1, 4, TimeSpan.Zero),
+            processingStarted: new DateTimeOffset(2000, 1, 1, 1, 1, 5, TimeSpan.Zero),
+            processingEnded: new DateTimeOffset(2000, 1, 1, 1, 1, 10, TimeSpan.Zero));
         Assert.AreEqual(0, mockPerformanceCounter.RawValue);
     }
 
@@ -38,13 +38,13 @@ public class EstimatedTimeToSLABreachCounterTests
         var mockPerformanceCounter = new MockIPerformanceCounter();
         var counter = new EstimatedTimeToSLABreachCounter(TimeSpan.FromSeconds(20), mockPerformanceCounter);
         counter.Update(
-            sent: new DateTime(2000, 1, 1, 1, 1, 1, DateTimeKind.Utc),
-            processingStarted: new DateTime(2000, 1, 1, 1, 1, 2, DateTimeKind.Utc),
-            processingEnded: new DateTime(2000, 1, 1, 1, 1, 3, DateTimeKind.Utc));
+            sent: new DateTimeOffset(2000, 1, 1, 1, 1, 1, TimeSpan.Zero),
+            processingStarted: new DateTimeOffset(2000, 1, 1, 1, 1, 2, TimeSpan.Zero),
+            processingEnded: new DateTimeOffset(2000, 1, 1, 1, 1, 3, TimeSpan.Zero));
         counter.Update(
-            sent: new DateTime(2000, 1, 1, 1, 1, 4, DateTimeKind.Utc),
-            processingStarted: new DateTime(2000, 1, 1, 1, 1, 5, DateTimeKind.Utc),
-            processingEnded: new DateTime(2000, 1, 1, 1, 1, 10, DateTimeKind.Utc));
+            sent: new DateTimeOffset(2000, 1, 1, 1, 1, 4, TimeSpan.Zero),
+            processingStarted: new DateTimeOffset(2000, 1, 1, 1, 1, 5, TimeSpan.Zero),
+            processingEnded: new DateTimeOffset(2000, 1, 1, 1, 1, 10, TimeSpan.Zero));
         Assert.AreEqual(24, mockPerformanceCounter.RawValue);
     }
 
