@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Security;
 using System.Runtime.CompilerServices;
+using System.Security;
 
 [CompilerGenerated]
 public static class CounterCreator
@@ -36,7 +36,9 @@ public static class CounterCreator
 
             PerformanceCounter.CloseSharedResources();
         }
+#pragma warning disable IDE0078 // Use pattern matching
         catch (Exception ex) when (ex is SecurityException || ex is UnauthorizedAccessException)
+#pragma warning restore IDE0078 // Use pattern matching
         {
             throw new Exception("Execution requires elevated permissions", ex);
         }
