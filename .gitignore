@@ -17,6 +17,7 @@ Samples/DataBus/storage
 packages
 PrecompiledWeb
 tempstorage
+.learningtransport
 core-only
 Release
 Artifacts
@@ -48,6 +49,7 @@ installer/ServiceControl-cache
 *.userosscache
 *.sln.docstates
 .vs/
+local.settings.json
 
 # mac temp file ignore
 .DS_Store
@@ -82,6 +84,7 @@ _NCrunch_*
 # ReSharper is a .NET coding add-in
 _ReSharper*/
 *.[Rr]e[Ss]harper
+*.DotSettings
 *.DotSettings.user
 
 src/scaffolding.config
@@ -92,7 +95,6 @@ src/scaffolding.config
 # JetBrains Rider
 .idea/
 *.sln.iml
-src/ForIntegration/*
-src/Integration/Directory.Build.props
 
-.learningtransport
+# Visual Studio Code
+.vscode
