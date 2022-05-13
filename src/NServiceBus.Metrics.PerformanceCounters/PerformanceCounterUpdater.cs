@@ -43,7 +43,7 @@ class PerformanceCounterUpdater
 
         foreach (var durationProbe in context.Durations)
         {
-            if (durationProbe.Name == CounterNameConventions.ProcessingTime || durationProbe.Name == CounterNameConventions.CriticalTime)
+            if (durationProbe.Name is CounterNameConventions.ProcessingTime or CounterNameConventions.CriticalTime)
             {
                 var key = new CounterInstanceName(durationProbe.Name, endpointName);
                 var performanceCounterInstance = cache.Get(key);

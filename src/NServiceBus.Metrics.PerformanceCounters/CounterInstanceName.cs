@@ -14,7 +14,7 @@ struct CounterInstanceName : IEquatable<CounterInstanceName>
             return false;
         }
 
-        if (!(obj is CounterInstanceName))
+        if (obj is not CounterInstanceName)
         {
             return false;
         }

@@ -1,12 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net472;netcoreapp3.1</TargetFrameworks>
+    <TargetFrameworks>net472;net6.0-windows</TargetFrameworks>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>$(SolutionDir)NServiceBus.snk</AssemblyOriginatorKeyFile>
     <Description>Enables access to performance counters</Description>
     <!-- Disable NU5111 and NU5110 as CreateNSBPerfCounters.ps1 scripts are intentionally not put into the tools folder. -->
     <NoWarn>$(NoWarn);NU5110;NU5111</NoWarn>
+    <LangVersion>10.0</LangVersion>
   </PropertyGroup>
 
   <ItemGroup Label="Public dependencies">
