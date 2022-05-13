@@ -10,8 +10,18 @@ public class APIApprovals
     {
         var publicApi = typeof(PerformanceCountersFeature).Assembly.GeneratePublicApi(new ApiGeneratorOptions
         {
-            ExcludeAttributes = new[] { "System.Runtime.Versioning.TargetFrameworkAttribute", "System.Reflection.AssemblyMetadataAttribute" }
+            ExcludeAttributes = new[]
+            {
+                "System.Runtime.Versioning.TargetFrameworkAttribute",
+                "System.Reflection.AssemblyMetadataAttribute"
+            }
         });
-        Approver.Verify(publicApi);
+#if NET6_0
+        Approver.Verify(publicApi, scenario: "net6.0");
+#elif NET472
+        Approver.Verify(publicApi, scenario: "net472");
+#else
+        throw new Exception("Unknown target framework in API Approval test");
+#endif
     }
 }
