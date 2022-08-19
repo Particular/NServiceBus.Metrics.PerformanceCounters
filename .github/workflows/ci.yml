@@ -21,7 +21,7 @@ jobs:
         uses: actions/setup-dotnet@v2.1.0
         with:
           dotnet-version: 6.0.x
-      - name: Setup .NET Core 3.1 runtime # Can't this be merged with the previous step?
+      - name: Setup .NET Core 3.1 runtime 
         uses: actions/setup-dotnet@v2.1.0
         with:
           dotnet-version: 3.1.x
