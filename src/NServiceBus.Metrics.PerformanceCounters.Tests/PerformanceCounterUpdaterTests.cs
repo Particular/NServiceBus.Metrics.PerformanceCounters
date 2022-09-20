@@ -161,7 +161,7 @@
         public async Task Durations_should_be_reported_as_zeros_after_specific_period_from_last_observed_pipeline_completion()
         {
             const string endpoint = "Sender@af016c07";
-            var resetTimersAfter = TimeSpan.FromMilliseconds(100);
+            var resetTimersAfter = TimeSpan.FromMilliseconds(500);
 
             var cache = new MockPerformanceCountersCache();
             var updater = new PerformanceCounterUpdater(cache, new Dictionary<string, CounterInstanceName?>(), endpoint, resetTimersAfter);
