@@ -1,27 +1,32 @@
-﻿using NUnit.Framework;
-using Particular.Approvals;
-using PublicApiGenerator;
-
-[TestFixture]
-public class APIApprovals
+﻿namespace NServiceBus.Metrics.PerformanceCounters.Tests
 {
-    [Test]
-    public void Approve()
+    using NUnit.Framework;
+    using Particular.Approvals;
+    using PublicApiGenerator;
+
+    [TestFixture]
+    public class APIApprovals
     {
-        var publicApi = typeof(PerformanceCountersFeature).Assembly.GeneratePublicApi(new ApiGeneratorOptions
+        [Test]
+        public void Approve()
         {
-            ExcludeAttributes = new[]
+            var publicApi = typeof(PerformanceCountersFeature).Assembly.GeneratePublicApi(new ApiGeneratorOptions
             {
+                ExcludeAttributes = new[]
+                {
                 "System.Runtime.Versioning.TargetFrameworkAttribute",
                 "System.Reflection.AssemblyMetadataAttribute"
             }
-        });
-#if NET6_0
-        Approver.Verify(publicApi, scenario: "net6.0");
+            });
+#if NET7_0
+            Approver.Verify(publicApi, scenario: "net7.0");
+#elif NET6_0
+            Approver.Verify(publicApi, scenario: "net6.0");
 #elif NET472
-        Approver.Verify(publicApi, scenario: "net472");
+            Approver.Verify(publicApi, scenario: "net472");
 #else
         throw new Exception("Unknown target framework in API Approval test");
 #endif
+        }
     }
 }
