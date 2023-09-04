@@ -1,18 +1,17 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net472;net6.0-windows</TargetFrameworks>
+    <TargetFramework>net8.0-windows</TargetFramework>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>$(SolutionDir)NServiceBus.snk</AssemblyOriginatorKeyFile>
     <Description>Enables access to performance counters</Description>
     <!-- Disable NU5111 and NU5110 as CreateNSBPerfCounters.ps1 scripts are intentionally not put into the tools folder. -->
     <NoWarn>$(NoWarn);NU5110;NU5111</NoWarn>
-    <LangVersion>10.0</LangVersion>
   </PropertyGroup>
 
   <ItemGroup Label="Public dependencies">
-    <PackageReference Include="NServiceBus.Metrics" Version="[4.0.0, 5.0.0)" />
-    <PackageReference Include="System.Diagnostics.PerformanceCounter" Version="7.0.0" />
+    <PackageReference Include="NServiceBus.Metrics" Version="5.0.0-alpha.1" />
+    <PackageReference Include="System.Diagnostics.PerformanceCounter" Version="8.0.0-preview.7.23375.6" />
   </ItemGroup>
 
   <ItemGroup Label="Private dependencies">
@@ -22,6 +21,9 @@
   <ItemGroup>
     <None Remove="Scripts\*" />
     <Content Include="Scripts\*" Pack="true" PackagePath="build" />
+  </ItemGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="NServiceBus.Metrics.PerformanceCounters.Tests" Key="$(NServiceBusTestsKey)" />
   </ItemGroup>
 
 </Project>
