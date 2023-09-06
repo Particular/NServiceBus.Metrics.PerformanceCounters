@@ -36,9 +36,7 @@ public static class CounterCreator
 
             PerformanceCounter.CloseSharedResources();
         }
-#pragma warning disable IDE0078 // Use pattern matching
-        catch (Exception ex) when (ex is SecurityException || ex is UnauthorizedAccessException)
-#pragma warning restore IDE0078 // Use pattern matching
+        catch (Exception ex) when (ex is SecurityException or UnauthorizedAccessException)
         {
             throw new Exception("Execution requires elevated permissions", ex);
         }

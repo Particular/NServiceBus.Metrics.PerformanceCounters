@@ -22,6 +22,7 @@
     <None Remove="Scripts\*" />
     <Content Include="Scripts\*" Pack="true" PackagePath="build" />
   </ItemGroup>
+
   <ItemGroup>
     <InternalsVisibleTo Include="NServiceBus.Metrics.PerformanceCounters.Tests" Key="$(NServiceBusTestsKey)" />
   </ItemGroup>
