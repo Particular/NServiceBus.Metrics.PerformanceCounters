@@ -124,7 +124,7 @@ class EstimatedTimeToSLABreachCounter : IDisposable
     }
 
     IPerformanceCounterInstance counter;
-    List<DataPoint> dataPoints = new List<DataPoint>();
+    List<DataPoint> dataPoints = [];
     TimeSpan endpointSla;
     System.Threading.Timer timer;
 
