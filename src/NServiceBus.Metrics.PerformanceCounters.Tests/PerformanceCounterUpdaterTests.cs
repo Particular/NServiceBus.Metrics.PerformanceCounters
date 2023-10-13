@@ -25,7 +25,7 @@
                 new MockSignalProbe("signal 3"),
             };
 
-            var sut = new PerformanceCounterUpdater(cache, new Dictionary<string, CounterInstanceName?>(), endpointName);
+            var sut = new PerformanceCounterUpdater(cache, [], endpointName);
 
             sut.Observe(new ProbeContext(new IDurationProbe[0], signals));
 
@@ -86,7 +86,7 @@
         public void Duration_probes_within_payload_should_be_converted_into_performance_counters()
         {
             var cache = new MockPerformanceCountersCache();
-            var sut = new PerformanceCounterUpdater(cache, new Dictionary<string, CounterInstanceName?>(), "Sender@af016c07");
+            var sut = new PerformanceCounterUpdater(cache, [], "Sender@af016c07");
 
             var durationProbes = new[]
             {
@@ -128,7 +128,7 @@
         public void Duration_probes_within_payload_should_be_converted_into_performance_counters_with_no_raw_value_if_not_critical_or_processing_time()
         {
             var cache = new MockPerformanceCountersCache();
-            var sut = new PerformanceCounterUpdater(cache, new Dictionary<string, CounterInstanceName?>(), "Sender@af016c07");
+            var sut = new PerformanceCounterUpdater(cache, [], "Sender@af016c07");
 
             var durationProbes = new[]
             {
@@ -164,7 +164,7 @@
             var resetTimersAfter = TimeSpan.FromMilliseconds(500);
 
             var cache = new MockPerformanceCountersCache();
-            var updater = new PerformanceCounterUpdater(cache, new Dictionary<string, CounterInstanceName?>(), endpoint, resetTimersAfter);
+            var updater = new PerformanceCounterUpdater(cache, [], endpoint, resetTimersAfter);
 
             var durationProbes = new[]
             {
@@ -198,7 +198,7 @@
             var resetTimersAfter = TimeSpan.FromMilliseconds(100);
 
             var cache = new MockPerformanceCountersCache();
-            var updater = new PerformanceCounterUpdater(cache, new Dictionary<string, CounterInstanceName?>(), endpoint, resetTimersAfter);
+            var updater = new PerformanceCounterUpdater(cache, [], endpoint, resetTimersAfter);
 
             var durationProbes = new[]
             {
