@@ -4,6 +4,4 @@ NServiceBus.Metrics.PerformanceCounters enables access to several performance co
 
 It is part of the [Particular Service Platform](https://particular.net/service-platform), which includes [NServiceBus](https://particular.net/nservicebus) and tools to build, monitor, and debug distributed systems.
 
-## Documentation
-
 See the [Windows Performance Counters documentation](https://docs.particular.net/monitoring/metrics/performance-counters) for more details on how to use it.
