@@ -18,6 +18,7 @@ public class IntegrationTests
 
         var endpointConfiguration = new EndpointConfiguration(EndpointName);
         endpointConfiguration.UseTransport(new LearningTransport());
+        endpointConfiguration.UseSerialization<SystemJsonSerializer>();
 
         endpointConfiguration.DefineCriticalErrorAction(
             (context, _) =>
