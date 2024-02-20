@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net8.0-windows</TargetFramework>
@@ -10,7 +10,8 @@
   </PropertyGroup>
 
   <ItemGroup Label="Public dependencies">
-    <PackageReference Include="NServiceBus.Metrics" Version="5.0.0-alpha.1" />
+    <PackageReference Include="NServiceBus" Version="[9.0.0, 10.0.0)" />
+    <PackageReference Include="NServiceBus.Metrics" Version="[5.0.0, 6.0.0)" />
     <PackageReference Include="System.Diagnostics.PerformanceCounter" Version="8.0.0" />
   </ItemGroup>
 

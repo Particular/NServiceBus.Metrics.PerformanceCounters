@@ -9,7 +9,7 @@ using NUnit.Framework;
 public class IntegrationTests
 {
     const string EndpointName = "PerfCountersIntegrationTests";
-    static ManualResetEvent ManualResetEvent = new ManualResetEvent(false);
+    static readonly ManualResetEvent ManualResetEvent = new ManualResetEvent(false);
 
     [Test]
     public async Task Ensure_counters_are_written()
@@ -45,16 +45,18 @@ public class IntegrationTests
         var criticalTimeReading = ReadNonZero(criticalTime, cancellation.Token);
         var processingTimeReading = ReadNonZero(processingTime, cancellation.Token);
 
-        await endpoint.SendLocal(new MyMessage())
+        await endpoint.SendLocal(new MyMessage(), cancellationToken: cancellation.Token)
             .ConfigureAwait(false);
 
         ManualResetEvent.WaitOne();
-        await Task.Delay(1500)
-            .ConfigureAwait(false);
-        await endpoint.Stop()
+
+        await Task.Delay(1500, cancellation.Token)
             .ConfigureAwait(false);
 
-        cancellation.Cancel();
+        await endpoint.Stop(cancellation.Token)
+            .ConfigureAwait(false);
+
+        await cancellation.CancelAsync();
         var slaPerCounter = GetCounter(SLAMonitoringFeature.CounterName);
         var messagesFailuresPerSecondCounter = GetCounter(PerformanceCountersFeature.MessagesFailuresPerSecondCounterName);
         var messagesProcessedPerSecondCounter = GetCounter(PerformanceCountersFeature.MessagesProcessedPerSecondCounterName);
@@ -92,9 +94,6 @@ public class IntegrationTests
             return Task.Delay(TimeSpan.FromMilliseconds(1000));
         }
     }
-    public class MyMessage : ICommand
-    {
 
-    }
-
+    public class MyMessage : ICommand;
 }

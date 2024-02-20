@@ -2,6 +2,7 @@
 {
     using System;
     using System.Runtime.InteropServices;
+    using System.Runtime.Versioning;
     using Configuration.AdvancedExtensibility;
 
     /// <summary>
@@ -20,6 +21,7 @@
         /// Enables the Time To Breach SLA performance counter.
         /// </summary>
         /// <param name="sla">The SLA to use. Must be greater than <see cref="TimeSpan.Zero" />.</param>
+        [SupportedOSPlatform("windows")]
         public void EnableSLAPerformanceCounters(TimeSpan sla)
         {
             if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
@@ -27,7 +29,7 @@
                 throw new PlatformNotSupportedException("Windows Performance Counters are not supported on this platform.");
             }
 
-            Guard.AgainstNegativeAndZero(nameof(sla), sla);
+            ArgumentOutOfRangeException.ThrowIfLessThanOrEqual(sla, TimeSpan.Zero);
 
             endpointConfiguration.GetSettings().Set(SLAMonitoringFeature.EndpointSLAKey, sla);
             endpointConfiguration.EnableFeature<SLAMonitoringFeature>();

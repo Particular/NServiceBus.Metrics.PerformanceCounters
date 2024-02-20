@@ -34,8 +34,8 @@ struct CounterInstanceName : IEquatable<CounterInstanceName>
 
     public CounterInstanceName(string counterName, string instanceName)
     {
-        Guard.AgainstNull(nameof(counterName), counterName);
-        Guard.AgainstNull(nameof(instanceName), instanceName);
+        ArgumentException.ThrowIfNullOrWhiteSpace(counterName);
+        ArgumentException.ThrowIfNullOrWhiteSpace(instanceName);
 
         CounterName = counterName;
         InstanceName = instanceName;
