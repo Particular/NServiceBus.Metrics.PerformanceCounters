@@ -2,6 +2,7 @@ namespace NServiceBus
 {
     using System;
     using System.Runtime.InteropServices;
+    using System.Runtime.Versioning;
 
     /// <summary>
     /// Exposes windows performance counters configuration on <see cref="EndpointConfiguration"/>.
@@ -12,6 +13,7 @@ namespace NServiceBus
         /// Enables receive statistics and critical time performance counters.
         /// </summary>
         /// <param name="endpointConfiguration">The <see cref="EndpointConfiguration" /> instance to apply the settings to.</param>
+        [SupportedOSPlatform("windows")]
         public static PerformanceCountersSettings EnableWindowsPerformanceCounters(this EndpointConfiguration endpointConfiguration)
         {
             if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))

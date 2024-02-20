@@ -5,10 +5,12 @@ namespace NServiceBus
 {
     public static class PerformanceCountersExtensions
     {
+        [System.Runtime.Versioning.SupportedOSPlatform("windows")]
         public static NServiceBus.PerformanceCountersSettings EnableWindowsPerformanceCounters(this NServiceBus.EndpointConfiguration endpointConfiguration) { }
     }
     public class PerformanceCountersSettings
     {
+        [System.Runtime.Versioning.SupportedOSPlatform("windows")]
         public void EnableSLAPerformanceCounters(System.TimeSpan sla) { }
     }
 }
