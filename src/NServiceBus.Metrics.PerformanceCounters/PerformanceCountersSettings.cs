@@ -27,7 +27,7 @@
                 throw new PlatformNotSupportedException("Windows Performance Counters are not supported on this platform.");
             }
 
-            Guard.AgainstNegativeAndZero(nameof(sla), sla);
+            Guard.ThrowIfNegativeOrZero(sla);
 
             endpointConfiguration.GetSettings().Set(SLAMonitoringFeature.EndpointSLAKey, sla);
             endpointConfiguration.EnableFeature<SLAMonitoringFeature>();

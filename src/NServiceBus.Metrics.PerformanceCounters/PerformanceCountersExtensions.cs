@@ -19,7 +19,7 @@ namespace NServiceBus
                 throw new PlatformNotSupportedException("Windows Performance Counters are not supported on this platform.");
             }
 
-            Guard.AgainstNull(nameof(endpointConfiguration), endpointConfiguration);
+            ArgumentNullException.ThrowIfNull(endpointConfiguration);
 
             endpointConfiguration.EnableMetrics();
             endpointConfiguration.EnableFeature<PerformanceCountersFeature>();

@@ -1,28 +1,15 @@
-﻿using System;
+﻿#nullable enable
+
+using System;
+using System.Runtime.CompilerServices;
 
 static class Guard
 {
-    public static void AgainstNull(string argumentName, object value)
+    public static void ThrowIfNegativeOrZero(TimeSpan argument, [CallerArgumentExpression(nameof(argument))] string? paramName = null)
     {
-        if (value == null)
+        if (argument <= TimeSpan.Zero)
         {
-            throw new ArgumentNullException(argumentName);
-        }
-    }
-
-    public static void AgainstNegativeAndZero(string argumentName, int value)
-    {
-        if (value <= 0)
-        {
-            throw new ArgumentOutOfRangeException(argumentName);
-        }
-    }
-
-    public static void AgainstNegativeAndZero(string argumentName, TimeSpan value)
-    {
-        if (value <= TimeSpan.Zero)
-        {
-            throw new ArgumentOutOfRangeException(argumentName);
+            throw new ArgumentOutOfRangeException(paramName);
         }
     }
 }
