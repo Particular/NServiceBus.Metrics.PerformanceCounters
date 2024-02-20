@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net8.0-windows</TargetFramework>
@@ -10,21 +10,22 @@
   </PropertyGroup>
 
   <ItemGroup Label="Public dependencies">
-    <PackageReference Include="NServiceBus.Metrics" Version="[5.0.0,6.0.0)"/>
-    <PackageReference Include="System.Diagnostics.PerformanceCounter" Version="8.0.0"/>
+    <PackageReference Include="NServiceBus" Version="[9.0.0, 10.0.0)" />
+    <PackageReference Include="NServiceBus.Metrics" Version="[5.0.0, 6.0.0)" />
+    <PackageReference Include="System.Diagnostics.PerformanceCounter" Version="8.0.0" />
   </ItemGroup>
 
   <ItemGroup Label="Private dependencies">
-    <PackageReference Include="Particular.Packaging" Version="4.0.0" PrivateAssets="All"/>
+    <PackageReference Include="Particular.Packaging" Version="4.0.0" PrivateAssets="All" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Scripts\*"/>
-    <Content Include="Scripts\*" Pack="true" PackagePath="build"/>
+    <None Remove="Scripts\*" />
+    <Content Include="Scripts\*" Pack="true" PackagePath="build" />
   </ItemGroup>
 
   <ItemGroup>
-    <InternalsVisibleTo Include="NServiceBus.Metrics.PerformanceCounters.Tests" Key="$(NServiceBusTestsKey)"/>
+    <InternalsVisibleTo Include="NServiceBus.Metrics.PerformanceCounters.Tests" Key="$(NServiceBusTestsKey)" />
   </ItemGroup>
 
 </Project>
