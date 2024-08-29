@@ -68,7 +68,7 @@ public class IntegrationTests
         Assert.That(messagesProcessedPerSecondCounter.RawValue, Is.Not.EqualTo(0));
         Assert.That(messagesPulledPerSecondCounter.RawValue, Is.Not.EqualTo(0));
 
-        Assert.IsNull(message);
+        Assert.That(message, Is.Null);
     }
 
     static async Task<bool> ReadNonZero(PerformanceCounter counter, CancellationToken cancellationToken)
