@@ -23,6 +23,6 @@ public class PipelineExtensionsTests
             completedAt: new DateTime(2000, 1, 1, 1, 1, 3, DateTimeKind.Utc));
 
         pipelineCompleted.TryGetTimeSent(out var timeSent);
-        Assert.AreEqual(dateTime, timeSent);
+        Assert.That(timeSent, Is.EqualTo(dateTime));
     }
 }

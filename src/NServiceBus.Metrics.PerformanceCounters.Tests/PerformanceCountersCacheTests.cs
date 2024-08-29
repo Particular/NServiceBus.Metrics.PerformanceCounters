@@ -18,10 +18,16 @@
             var firstCounter = cache.Get(new CounterInstanceName(counterName, instanceName));
             var secondCounter = cache.Get(new CounterInstanceName(counterName, instanceName));
 
-            Assert.NotNull(firstCounter);
-            Assert.NotNull(secondCounter);
-            Assert.AreSame(firstCounter, secondCounter);
-            Assert.That(cache.CountersCreated, Is.EqualTo(1));
+            Assert.Multiple(() =>
+            {
+                Assert.That(firstCounter, Is.Not.Null);
+                Assert.That(secondCounter, Is.Not.Null);
+            });
+            Assert.Multiple(() =>
+            {
+                Assert.That(secondCounter, Is.SameAs(firstCounter));
+                Assert.That(cache.CountersCreated, Is.EqualTo(1));
+            });
         }
 
         [Test]

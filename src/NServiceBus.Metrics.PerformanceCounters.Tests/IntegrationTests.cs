@@ -11,6 +11,12 @@ public class IntegrationTests
     const string EndpointName = "PerfCountersIntegrationTests";
     static readonly ManualResetEvent ManualResetEvent = new ManualResetEvent(false);
 
+    [OneTimeTearDown]
+    public void TearDown()
+    {
+        ManualResetEvent.Dispose();
+    }
+
     [Test]
     public async Task Ensure_counters_are_written()
     {

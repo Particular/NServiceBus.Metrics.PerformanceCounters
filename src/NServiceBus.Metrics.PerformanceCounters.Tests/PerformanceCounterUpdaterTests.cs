@@ -38,9 +38,12 @@
             var performanceCounterTwo = cache.Get(new CounterInstanceName(signals[1].Name, endpointName));
             var performanceCounterThree = cache.Get(new CounterInstanceName(signals[2].Name, endpointName));
 
-            Assert.AreEqual(111, performanceCounterOne.RawValue);
-            Assert.AreEqual(222, performanceCounterTwo.RawValue);
-            Assert.AreEqual(333, performanceCounterThree.RawValue);
+            Assert.Multiple(() =>
+            {
+                Assert.That(performanceCounterOne.RawValue, Is.EqualTo(111));
+                Assert.That(performanceCounterTwo.RawValue, Is.EqualTo(222));
+                Assert.That(performanceCounterThree.RawValue, Is.EqualTo(333));
+            });
         }
 
         [Test]
@@ -76,9 +79,12 @@
             var performanceCounterTwo = cache.Get(new CounterInstanceName("# of msgs pulled from the input queue /sec", "queueAddress"));
             var performanceCounterThree = cache.Get(new CounterInstanceName("# of msgs successfully processed / sec", "queueAddress"));
 
-            Assert.AreEqual(111, performanceCounterOne.RawValue);
-            Assert.AreEqual(222, performanceCounterTwo.RawValue);
-            Assert.AreEqual(333, performanceCounterThree.RawValue);
+            Assert.Multiple(() =>
+            {
+                Assert.That(performanceCounterOne.RawValue, Is.EqualTo(111));
+                Assert.That(performanceCounterTwo.RawValue, Is.EqualTo(222));
+                Assert.That(performanceCounterThree.RawValue, Is.EqualTo(333));
+            });
         }
 
 
@@ -115,13 +121,16 @@
             var counter2average = cache.Get(new CounterInstanceName("Processing Time Average", "Sender@af016c07"));
             var counter2averageBase = cache.Get(new CounterInstanceName("Processing Time AverageBase", "Sender@af016c07"));
 
-            Assert.AreEqual(11, counter1.RawValue);
-            Assert.AreEqual(CalculateAverageTimerCounterUpdate(timeSpan1), counter1average.RawValue);
-            Assert.AreEqual(1, counter1averageBase.RawValue);
+            Assert.Multiple(() =>
+            {
+                Assert.That(counter1.RawValue, Is.EqualTo(11));
+                Assert.That(counter1average.RawValue, Is.EqualTo(CalculateAverageTimerCounterUpdate(timeSpan1)));
+                Assert.That(counter1averageBase.RawValue, Is.EqualTo(1));
 
-            Assert.AreEqual(22, counter2.RawValue);
-            Assert.AreEqual(CalculateAverageTimerCounterUpdate(timeSpan2), counter2average.RawValue);
-            Assert.AreEqual(1, counter2averageBase.RawValue);
+                Assert.That(counter2.RawValue, Is.EqualTo(22));
+                Assert.That(counter2average.RawValue, Is.EqualTo(CalculateAverageTimerCounterUpdate(timeSpan2)));
+                Assert.That(counter2averageBase.RawValue, Is.EqualTo(1));
+            });
         }
 
         [Test]
@@ -148,9 +157,12 @@
             var counter1average = cache.Get(new CounterInstanceName("Any Other Timer Average", "Sender@af016c07"));
             var counter1averageBase = cache.Get(new CounterInstanceName("Any Other Timer AverageBase", "Sender@af016c07"));
 
-            Assert.AreEqual(0, counter1.RawValue);
-            Assert.AreEqual(CalculateAverageTimerCounterUpdate(timeSpan), counter1average.RawValue);
-            Assert.AreEqual(1, counter1averageBase.RawValue);
+            Assert.Multiple(() =>
+            {
+                Assert.That(counter1.RawValue, Is.EqualTo(0));
+                Assert.That(counter1average.RawValue, Is.EqualTo(CalculateAverageTimerCounterUpdate(timeSpan)));
+                Assert.That(counter1averageBase.RawValue, Is.EqualTo(1));
+            });
         }
 
         static long CalculateAverageTimerCounterUpdate(TimeSpan d)
@@ -187,8 +199,8 @@
 
             await updater.Stop();
 
-            Assert.AreEqual(0, performanceCounterOne.RawValue);
-            Assert.AreEqual(0, performanceCounterTwo.RawValue);
+            Assert.That(performanceCounterOne.RawValue, Is.EqualTo(0));
+            Assert.That(performanceCounterTwo.RawValue, Is.EqualTo(0));
         }
 
         [Test]
@@ -221,8 +233,8 @@
             var performanceCounterOne = cache.Get(new CounterInstanceName("Critical Time", endpoint));
             var performanceCounterTwo = cache.Get(new CounterInstanceName("Processing Time", endpoint));
 
-            Assert.AreEqual(11, performanceCounterOne.RawValue);
-            Assert.AreEqual(22, performanceCounterTwo.RawValue);
+            Assert.That(performanceCounterOne.RawValue, Is.EqualTo(11));
+            Assert.That(performanceCounterTwo.RawValue, Is.EqualTo(22));
         }
     }
 
