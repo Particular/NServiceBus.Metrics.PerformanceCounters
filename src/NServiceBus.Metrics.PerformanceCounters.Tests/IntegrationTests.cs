@@ -37,8 +37,11 @@ public class IntegrationTests
         var criticalTime = GetCounter(PerformanceCountersFeature.CriticalTimeCounterName);
         var processingTime = GetCounter(PerformanceCountersFeature.ProcessingTimeCounterName);
 
-        Assert.That(criticalTime.RawValue, Is.EqualTo(0));
-        Assert.That(processingTime.RawValue, Is.EqualTo(0));
+        Assert.Multiple(() =>
+        {
+            Assert.That(criticalTime.RawValue, Is.EqualTo(0));
+            Assert.That(processingTime.RawValue, Is.EqualTo(0));
+        });
 
         var cancellation = new CancellationTokenSource();
 
@@ -61,14 +64,17 @@ public class IntegrationTests
         var messagesFailuresPerSecondCounter = GetCounter(PerformanceCountersFeature.MessagesFailuresPerSecondCounterName);
         var messagesProcessedPerSecondCounter = GetCounter(PerformanceCountersFeature.MessagesProcessedPerSecondCounterName);
         var messagesPulledPerSecondCounter = GetCounter(PerformanceCountersFeature.MessagesPulledPerSecondCounterName);
-        Assert.That(await criticalTimeReading, Is.True);
-        Assert.That(await processingTimeReading, Is.True);
-        Assert.That(slaPerCounter.RawValue, Is.Not.EqualTo(0));
-        Assert.That(messagesFailuresPerSecondCounter.RawValue, Is.EqualTo(0));
-        Assert.That(messagesProcessedPerSecondCounter.RawValue, Is.Not.EqualTo(0));
-        Assert.That(messagesPulledPerSecondCounter.RawValue, Is.Not.EqualTo(0));
+        Assert.Multiple(async () =>
+        {
+            Assert.That(await criticalTimeReading, Is.True);
+            Assert.That(await processingTimeReading, Is.True);
+            Assert.That(slaPerCounter.RawValue, Is.Not.EqualTo(0));
+            Assert.That(messagesFailuresPerSecondCounter.RawValue, Is.EqualTo(0));
+            Assert.That(messagesProcessedPerSecondCounter.RawValue, Is.Not.EqualTo(0));
+            Assert.That(messagesPulledPerSecondCounter.RawValue, Is.Not.EqualTo(0));
 
-        Assert.That(message, Is.Null);
+            Assert.That(message, Is.Null);
+        });
     }
 
     static async Task<bool> ReadNonZero(PerformanceCounter counter, CancellationToken cancellationToken)

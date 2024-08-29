@@ -46,8 +46,11 @@
 
             cache.Dispose();
 
-            Assert.That(((MockIPerformanceCounter)someCounter).Disposed, Is.True);
-            Assert.That(((MockIPerformanceCounter)anotherCounter).Disposed, Is.True);
+            Assert.Multiple(() =>
+            {
+                Assert.That(((MockIPerformanceCounter)someCounter).Disposed, Is.True);
+                Assert.That(((MockIPerformanceCounter)anotherCounter).Disposed, Is.True);
+            });
         }
 
         class TestablePerformanceCountersCache : PerformanceCountersCache
