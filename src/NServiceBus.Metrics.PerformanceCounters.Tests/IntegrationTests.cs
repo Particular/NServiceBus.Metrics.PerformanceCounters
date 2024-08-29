@@ -63,10 +63,10 @@ public class IntegrationTests
         var messagesPulledPerSecondCounter = GetCounter(PerformanceCountersFeature.MessagesPulledPerSecondCounterName);
         Assert.That(await criticalTimeReading, Is.True);
         Assert.That(await processingTimeReading, Is.True);
-        Assert.AreNotEqual(0, slaPerCounter.RawValue);
+        Assert.That(slaPerCounter.RawValue, Is.Not.EqualTo(0));
         Assert.That(messagesFailuresPerSecondCounter.RawValue, Is.EqualTo(0));
-        Assert.AreNotEqual(0, messagesProcessedPerSecondCounter.RawValue);
-        Assert.AreNotEqual(0, messagesPulledPerSecondCounter.RawValue);
+        Assert.That(messagesProcessedPerSecondCounter.RawValue, Is.Not.EqualTo(0));
+        Assert.That(messagesPulledPerSecondCounter.RawValue, Is.Not.EqualTo(0));
 
         Assert.IsNull(message);
     }
