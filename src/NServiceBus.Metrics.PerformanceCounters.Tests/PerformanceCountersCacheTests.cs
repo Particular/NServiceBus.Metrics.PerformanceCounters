@@ -21,7 +21,7 @@
             Assert.NotNull(firstCounter);
             Assert.NotNull(secondCounter);
             Assert.AreSame(firstCounter, secondCounter);
-            Assert.AreEqual(1, cache.CountersCreated);
+            Assert.That(cache.CountersCreated, Is.EqualTo(1));
         }
 
         [Test]

@@ -37,8 +37,8 @@ public class IntegrationTests
         var criticalTime = GetCounter(PerformanceCountersFeature.CriticalTimeCounterName);
         var processingTime = GetCounter(PerformanceCountersFeature.ProcessingTimeCounterName);
 
-        Assert.AreEqual(0, criticalTime.RawValue);
-        Assert.AreEqual(0, processingTime.RawValue);
+        Assert.That(criticalTime.RawValue, Is.EqualTo(0));
+        Assert.That(processingTime.RawValue, Is.EqualTo(0));
 
         var cancellation = new CancellationTokenSource();
 
@@ -64,7 +64,7 @@ public class IntegrationTests
         Assert.That(await criticalTimeReading, Is.True);
         Assert.That(await processingTimeReading, Is.True);
         Assert.AreNotEqual(0, slaPerCounter.RawValue);
-        Assert.AreEqual(0, messagesFailuresPerSecondCounter.RawValue);
+        Assert.That(messagesFailuresPerSecondCounter.RawValue, Is.EqualTo(0));
         Assert.AreNotEqual(0, messagesProcessedPerSecondCounter.RawValue);
         Assert.AreNotEqual(0, messagesPulledPerSecondCounter.RawValue);
 

@@ -105,7 +105,7 @@
             durationProbes[1].Observers(ref d2);
 
             // asserting the number of accessed counters
-            Assert.AreEqual(3 + 3, cache.Count);
+            Assert.That(cache.Count, Is.EqualTo(3 + 3));
 
             var counter1 = cache.Get(new CounterInstanceName("Critical Time", "Sender@af016c07"));
             var counter1average = cache.Get(new CounterInstanceName("Critical Time Average", "Sender@af016c07"));
@@ -142,7 +142,7 @@
             durationProbes[0].Observers(ref d);
 
             // asserting the number of accessed counters
-            Assert.AreEqual(2, cache.Count);
+            Assert.That(cache.Count, Is.EqualTo(2));
 
             var counter1 = cache.Get(new CounterInstanceName("Any Other Timer", "Sender@af016c07"));
             var counter1average = cache.Get(new CounterInstanceName("Any Other Timer Average", "Sender@af016c07"));
