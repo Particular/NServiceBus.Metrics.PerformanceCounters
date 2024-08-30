@@ -18,10 +18,16 @@
             var firstCounter = cache.Get(new CounterInstanceName(counterName, instanceName));
             var secondCounter = cache.Get(new CounterInstanceName(counterName, instanceName));
 
-            Assert.NotNull(firstCounter);
-            Assert.NotNull(secondCounter);
-            Assert.AreSame(firstCounter, secondCounter);
-            Assert.AreEqual(1, cache.CountersCreated);
+            Assert.Multiple(() =>
+            {
+                Assert.That(firstCounter, Is.Not.Null);
+                Assert.That(secondCounter, Is.Not.Null);
+            });
+            Assert.Multiple(() =>
+            {
+                Assert.That(secondCounter, Is.SameAs(firstCounter));
+                Assert.That(cache.CountersCreated, Is.EqualTo(1));
+            });
         }
 
         [Test]
@@ -46,8 +52,11 @@
 
             cache.Dispose();
 
-            Assert.IsTrue(((MockIPerformanceCounter)someCounter).Disposed);
-            Assert.IsTrue(((MockIPerformanceCounter)anotherCounter).Disposed);
+            Assert.Multiple(() =>
+            {
+                Assert.That(((MockIPerformanceCounter)someCounter).Disposed, Is.True);
+                Assert.That(((MockIPerformanceCounter)anotherCounter).Disposed, Is.True);
+            });
         }
 
         class TestablePerformanceCountersCache : PerformanceCountersCache

@@ -13,7 +13,7 @@ public class EstimatedTimeToSLABreachCounterTests
             sent: new DateTimeOffset(2000, 1, 1, 1, 1, 1, TimeSpan.Zero),
             processingStarted: new DateTimeOffset(2000, 1, 1, 1, 1, 2, TimeSpan.Zero),
             processingEnded: new DateTimeOffset(2000, 1, 1, 1, 1, 3, TimeSpan.Zero));
-        Assert.AreEqual(int.MaxValue, mockPerformanceCounter.RawValue);
+        Assert.That(mockPerformanceCounter.RawValue, Is.EqualTo(int.MaxValue));
     }
 
     [Test]
@@ -29,7 +29,7 @@ public class EstimatedTimeToSLABreachCounterTests
             sent: new DateTimeOffset(2000, 1, 1, 1, 1, 4, TimeSpan.Zero),
             processingStarted: new DateTimeOffset(2000, 1, 1, 1, 1, 5, TimeSpan.Zero),
             processingEnded: new DateTimeOffset(2000, 1, 1, 1, 1, 10, TimeSpan.Zero));
-        Assert.AreEqual(0, mockPerformanceCounter.RawValue);
+        Assert.That(mockPerformanceCounter.RawValue, Is.EqualTo(0));
     }
 
     [Test]
@@ -45,7 +45,7 @@ public class EstimatedTimeToSLABreachCounterTests
             sent: new DateTimeOffset(2000, 1, 1, 1, 1, 4, TimeSpan.Zero),
             processingStarted: new DateTimeOffset(2000, 1, 1, 1, 1, 5, TimeSpan.Zero),
             processingEnded: new DateTimeOffset(2000, 1, 1, 1, 1, 10, TimeSpan.Zero));
-        Assert.AreEqual(24, mockPerformanceCounter.RawValue);
+        Assert.That(mockPerformanceCounter.RawValue, Is.EqualTo(24));
     }
 
 }

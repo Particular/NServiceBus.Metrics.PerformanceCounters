@@ -6,6 +6,6 @@ public class PerformanceMonitoringUsersSidTests
     [Test]
     public void GetUserName()
     {
-        Assert.IsNotNull(PerformanceMonitoringUsersSid.Get());
+        Assert.That(PerformanceMonitoringUsersSid.Get(), Is.Not.Null);
     }
 }

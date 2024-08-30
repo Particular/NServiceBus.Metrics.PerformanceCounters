@@ -11,6 +11,12 @@ public class IntegrationTests
     const string EndpointName = "PerfCountersIntegrationTests";
     static readonly ManualResetEvent ManualResetEvent = new ManualResetEvent(false);
 
+    [OneTimeTearDown]
+    public void TearDown()
+    {
+        ManualResetEvent.Dispose();
+    }
+
     [Test]
     public async Task Ensure_counters_are_written()
     {
@@ -37,8 +43,11 @@ public class IntegrationTests
         var criticalTime = GetCounter(PerformanceCountersFeature.CriticalTimeCounterName);
         var processingTime = GetCounter(PerformanceCountersFeature.ProcessingTimeCounterName);
 
-        Assert.AreEqual(0, criticalTime.RawValue);
-        Assert.AreEqual(0, processingTime.RawValue);
+        Assert.Multiple(() =>
+        {
+            Assert.That(criticalTime.RawValue, Is.EqualTo(0));
+            Assert.That(processingTime.RawValue, Is.EqualTo(0));
+        });
 
         var cancellation = new CancellationTokenSource();
 
@@ -61,14 +70,17 @@ public class IntegrationTests
         var messagesFailuresPerSecondCounter = GetCounter(PerformanceCountersFeature.MessagesFailuresPerSecondCounterName);
         var messagesProcessedPerSecondCounter = GetCounter(PerformanceCountersFeature.MessagesProcessedPerSecondCounterName);
         var messagesPulledPerSecondCounter = GetCounter(PerformanceCountersFeature.MessagesPulledPerSecondCounterName);
-        Assert.True(await criticalTimeReading);
-        Assert.True(await processingTimeReading);
-        Assert.AreNotEqual(0, slaPerCounter.RawValue);
-        Assert.AreEqual(0, messagesFailuresPerSecondCounter.RawValue);
-        Assert.AreNotEqual(0, messagesProcessedPerSecondCounter.RawValue);
-        Assert.AreNotEqual(0, messagesPulledPerSecondCounter.RawValue);
+        Assert.Multiple(async () =>
+        {
+            Assert.That(await criticalTimeReading, Is.True);
+            Assert.That(await processingTimeReading, Is.True);
+            Assert.That(slaPerCounter.RawValue, Is.Not.EqualTo(0));
+            Assert.That(messagesFailuresPerSecondCounter.RawValue, Is.EqualTo(0));
+            Assert.That(messagesProcessedPerSecondCounter.RawValue, Is.Not.EqualTo(0));
+            Assert.That(messagesPulledPerSecondCounter.RawValue, Is.Not.EqualTo(0));
 
-        Assert.IsNull(message);
+            Assert.That(message, Is.Null);
+        });
     }
 
     static async Task<bool> ReadNonZero(PerformanceCounter counter, CancellationToken cancellationToken)
