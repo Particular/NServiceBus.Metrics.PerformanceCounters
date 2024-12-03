@@ -1,13 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0-windows</TargetFramework>
+    <TargetFrameworks>net8.0-windows;net9.0-windows</TargetFrameworks>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\NServiceBusTests.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\NServiceBus.Metrics.PerformanceCounters\NServiceBus.Metrics.PerformanceCounters.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NServiceBus" Version="9.0.0" />
+    <PackageReference Include="NServiceBus.Metrics" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>
