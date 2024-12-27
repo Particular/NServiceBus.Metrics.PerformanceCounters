@@ -11,7 +11,7 @@
 
   <ItemGroup Label="Public dependencies">
     <PackageReference Include="NServiceBus" Version="9.1.2" />
-    <PackageReference Include="NServiceBus.Metrics" Version="[5.0.0, 6.0.0)" />
+    <PackageReference Include="NServiceBus.Metrics" Version="5.0.0" />
     <PackageReference Include="System.Diagnostics.PerformanceCounter" Version="8.0.0" />
   </ItemGroup>
 
