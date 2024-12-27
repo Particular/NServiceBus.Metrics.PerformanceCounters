@@ -13,7 +13,7 @@
   <ItemGroup Label="Public dependencies">
     <PackageReference Include="NServiceBus" Version="8.2.4" />
     <PackageReference Include="NServiceBus.Metrics" Version="4.0.0" />
-    <PackageReference Include="System.Diagnostics.PerformanceCounter" Version="6.0.1" />
+    <PackageReference Include="System.Diagnostics.PerformanceCounter" Version="6.0.1" AutomaticVersionRange="false" />
   </ItemGroup>
 
   <ItemGroup Label="Private dependencies">
