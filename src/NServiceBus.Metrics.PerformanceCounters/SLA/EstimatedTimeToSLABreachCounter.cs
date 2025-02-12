@@ -45,7 +45,7 @@ class EstimatedTimeToSLABreachCounter : IDisposable
 
         lock (dataPoints)
         {
-            snapshots = [..dataPoints];
+            snapshots = [.. dataPoints];
         }
 
         var secondsToSLABreach = CalculateTimeToSLABreach(snapshots);
