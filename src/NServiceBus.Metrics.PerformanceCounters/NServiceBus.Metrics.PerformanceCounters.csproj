@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup Label="Public dependencies">
-    <PackageReference Include="NServiceBus" Version="10.0.0-alpha.5" />
+    <PackageReference Include="NServiceBus" Version="10.0.0-alpha.6" />
     <PackageReference Include="NServiceBus.Metrics" Version="6.0.0-alpha.2" />
     <PackageReference Include="System.Diagnostics.PerformanceCounter" Version="10.0.0-preview.5.25277.114" AutomaticVersionRange="false" />
   </ItemGroup>
