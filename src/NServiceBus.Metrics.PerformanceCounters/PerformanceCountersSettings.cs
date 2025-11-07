@@ -10,12 +10,9 @@
     /// </summary>
     public class PerformanceCountersSettings
     {
-        EndpointConfiguration endpointConfiguration;
+        readonly EndpointConfiguration endpointConfiguration;
 
-        internal PerformanceCountersSettings(EndpointConfiguration endpointConfiguration)
-        {
-            this.endpointConfiguration = endpointConfiguration;
-        }
+        internal PerformanceCountersSettings(EndpointConfiguration endpointConfiguration) => this.endpointConfiguration = endpointConfiguration;
 
         /// <summary>
         /// Enables the Time To Breach SLA performance counter.
