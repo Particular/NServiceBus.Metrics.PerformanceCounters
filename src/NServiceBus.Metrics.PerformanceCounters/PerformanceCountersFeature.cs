@@ -7,14 +7,6 @@ using NServiceBus.Features;
 
 class PerformanceCountersFeature : Feature
 {
-    public PerformanceCountersFeature()
-    {
-        Defaults(s =>
-        {
-            options = s.GetOrCreate<MetricsOptions>();
-        });
-    }
-
     protected override void Setup(FeatureConfigurationContext context)
     {
         context.ThrowIfSendOnly();
@@ -23,9 +15,15 @@ class PerformanceCountersFeature : Feature
 
         var legacyInstanceNameMap = new Dictionary<string, CounterInstanceName?>
         {
-            {"# of message failures / sec", new CounterInstanceName(MessagesFailuresPerSecondCounterName, endpoint)},
-            {"# of messages pulled from the input queue / sec", new CounterInstanceName(MessagesPulledPerSecondCounterName, endpoint)},
-            {"# of messages successfully processed / sec", new CounterInstanceName(MessagesProcessedPerSecondCounterName, endpoint)}
+            {
+                "# of message failures / sec", new CounterInstanceName(MessagesFailuresPerSecondCounterName, endpoint)
+            },
+            {
+                "# of messages pulled from the input queue / sec", new CounterInstanceName(MessagesPulledPerSecondCounterName, endpoint)
+            },
+            {
+                "# of messages successfully processed / sec", new CounterInstanceName(MessagesProcessedPerSecondCounterName, endpoint)
+            }
         };
 
         cache = new PerformanceCountersCache();
@@ -39,13 +37,14 @@ class PerformanceCountersFeature : Feature
             return Task.CompletedTask;
         });
 
+        var options = context.Settings.Get<MetricsOptions>();
+
         options.RegisterObservers(probeContext =>
         {
             updater.Observe(probeContext);
         });
     }
 
-    MetricsOptions options;
     PerformanceCounterUpdater updater;
     PerformanceCountersCache cache;
 
@@ -55,13 +54,8 @@ class PerformanceCountersFeature : Feature
     public const string CriticalTimeCounterName = "Critical Time";
     public const string ProcessingTimeCounterName = "Processing Time";
 
-    class Cleanup : FeatureStartupTask, IDisposable
+    class Cleanup(PerformanceCountersFeature feature) : FeatureStartupTask, IDisposable
     {
-        public Cleanup(PerformanceCountersFeature feature)
-        {
-            this.feature = feature;
-        }
-
         public void Dispose()
         {
             feature.updater = null;
@@ -74,11 +68,6 @@ class PerformanceCountersFeature : Feature
             return Task.CompletedTask;
         }
 
-        protected override Task OnStop(IMessageSession session, CancellationToken cancellationToken = default)
-        {
-            return feature.updater.Stop(cancellationToken);
-        }
-
-        PerformanceCountersFeature feature;
+        protected override Task OnStop(IMessageSession session, CancellationToken cancellationToken = default) => feature.updater.Stop(cancellationToken);
     }
 }
