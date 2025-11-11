@@ -30,6 +30,7 @@ class PerformanceCountersFeature : Feature
         updater = new PerformanceCounterUpdater(cache, legacyInstanceNameMap, endpoint);
 
         context.RegisterStartupTask(new Cleanup(this));
+        context.AddInstaller<PerformanceMonitorUsersInstaller>();
 
         context.Pipeline.OnReceivePipelineCompleted((_, __) =>
         {
