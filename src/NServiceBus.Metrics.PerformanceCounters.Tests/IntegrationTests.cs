@@ -2,6 +2,8 @@
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Testing.Platform.Services;
 using NServiceBus;
 using NUnit.Framework;
 
@@ -37,8 +39,12 @@ public class IntegrationTests
         var performanceCounters = endpointConfiguration.EnableWindowsPerformanceCounters();
         performanceCounters.EnableSLAPerformanceCounters(TimeSpan.FromSeconds(10));
 
-        var endpoint = await Endpoint.Start(endpointConfiguration)
-            .ConfigureAwait(false);
+        var builder = Host.CreateEmptyApplicationBuilder(new HostApplicationBuilderSettings());
+        builder.Services.AddNServiceBusEndpoint(endpointConfiguration);
+        var host = builder.Build();
+        await host.StartAsync();
+
+        var messageSession = host.Services.GetRequiredService<IMessageSession>();
 
         var criticalTime = GetCounter(PerformanceCountersFeature.CriticalTimeCounterName);
         var processingTime = GetCounter(PerformanceCountersFeature.ProcessingTimeCounterName);
@@ -54,7 +60,7 @@ public class IntegrationTests
         var criticalTimeReading = ReadNonZero(criticalTime, cancellation.Token);
         var processingTimeReading = ReadNonZero(processingTime, cancellation.Token);
 
-        await endpoint.SendLocal(new MyMessage(), cancellationToken: cancellation.Token)
+        await messageSession.SendLocal(new MyMessage(), cancellationToken: cancellation.Token)
             .ConfigureAwait(false);
 
         ManualResetEvent.WaitOne();
@@ -62,7 +68,7 @@ public class IntegrationTests
         await Task.Delay(1500, cancellation.Token)
             .ConfigureAwait(false);
 
-        await endpoint.Stop(cancellation.Token)
+        await host.StopAsync(cancellation.Token)
             .ConfigureAwait(false);
 
         await cancellation.CancelAsync();
